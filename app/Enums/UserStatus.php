@@ -9,6 +9,7 @@ enum UserStatus: string
 {
     case MAIN_MENU = 'main_menu';
     case SHOW_PROGRESS = 'show_progress';
+    case HOW_TO_PLAY = 'how_to_play';
     case PROVIDE_FEEDBACK = 'provide_feedback';
 
     public function handler(): string

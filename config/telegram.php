@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\Back;
 use App\Http\Controllers\CheckBlockedUsers;
-use App\Http\Controllers\HowToPlay;
+use App\Http\Controllers\Puzzle\SelectDifficulty;
+use App\Http\Controllers\Informational\HowToPlay;
+use App\Http\Controllers\Informational\ProgressMenu;
 use App\Http\Controllers\MainMenu;
-use App\Http\Controllers\ProgressMenu;
-use Laravel\Prompts\Progress;
 
 return [
     'telegram_bot_token' => env('TELEGRAM_BOT_TOKEN'),
@@ -16,7 +16,8 @@ return [
             'back' => Back::class,
             'menu_option_how_to_play' => HowToPlay::class,
             'menu_option_progress' => ProgressMenu::class,
-            'menu_option_start' => '',
+
+            'menu_option_start' => SelectDifficulty::class,
         ],
 
         'slash' => [

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Services\Game;
+namespace App\Services\Puzzle;
 
 use App\Models\User;
 

@@ -2,24 +2,30 @@
 
 namespace App\Models;
 
+use App\Enums\PuzzleDifficulty;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property string $title
+ * @property string $description
+ * @property PuzzleDifficulty $difficulty
+ */
 class Puzzle extends Model
 {
     protected $fillable = [
-        'title', 'description', 'difficulty'
+        'title',
+        'description',
+        'difficulty',
     ];
 
-    const EASY = 'easy';
-    const MEDIUM = 'medium';
-    const HARD = 'hard';
+    protected $casts = [
+        'difficulty' => PuzzleDifficulty::class,
+    ];
 
-    public static function getAvailableDifficulties()
+    public function hints(): HasMany
     {
-        return [
-            self::EASY,
-            self::MEDIUM,
-            self::HARD,
-        ];
+        return $this->hasMany(Hint::class);
     }
 }
