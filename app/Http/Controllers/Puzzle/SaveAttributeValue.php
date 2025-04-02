@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Puzzle;
 
 use App\Http\Controllers\BaseCommand;
 use App\Models\Puzzle\AttributeValue;
-use App\Models\Puzzle\Solution;
 use App\Models\UserProgress;
 use App\Services\Puzzle\PuzzleSolutionService;
 

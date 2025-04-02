@@ -9,7 +9,6 @@ use App\Services\Handlers\Updates\TextOrCallbackQueryHandler;
 use App\Services\Puzzle\PuzzleContext;
 use App\Services\Puzzle\Table\TableCellResolver;
 use App\Utils\Api;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use TelegramBot\Api\Client as TelegramClient;

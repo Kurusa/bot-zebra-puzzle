@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Puzzle;
 
 use App\Http\Controllers\BaseCommand;
-use App\Models\Puzzle\Solution;
 use App\Services\Keyboard\Puzzle\TableKeyboardService;
-use Illuminate\Support\Facades\View;
 
 class SubmitSolution extends BaseCommand
 {
