@@ -4,6 +4,8 @@ namespace App\Enums\CallbackAction;
 
 use App\Http\Controllers\Puzzle\EditSubject;
 use App\Http\Controllers\Puzzle\PuzzleView;
+use App\Http\Controllers\Puzzle\SaveAttributeValue;
+use App\Http\Controllers\Puzzle\SelectAttributeValue;
 use App\Http\Controllers\Puzzle\StartSolving;
 use App\Http\Controllers\Setting\Language\HandleSelectLanguage;
 
@@ -15,6 +17,8 @@ enum CallbackAction: int implements CallbackActionEnum
     case DIFFERENT_PUZZLE = 4;
     case EDIT_SUBJECT = 7;
     case SELECT_ATTRIBUTE = 8;
+    case SAVE_ATTRIBUTE_VALUE = 9;
+    case SUBMIT_SOLUTION = 10;
 
     public function handler(): string
     {
@@ -23,6 +27,8 @@ enum CallbackAction: int implements CallbackActionEnum
             self::DIFFICULTY_SELECT, self::DIFFERENT_PUZZLE => PuzzleView::class,
             self::START_SOLVING => StartSolving::class,
             self::EDIT_SUBJECT => EditSubject::class,
+            self::SELECT_ATTRIBUTE => SelectAttributeValue::class,
+            self::SAVE_ATTRIBUTE_VALUE => SaveAttributeValue::class,
         };
     }
 }

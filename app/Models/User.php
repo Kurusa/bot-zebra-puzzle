@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\UserStatus;
+use App\Models\Puzzle\Puzzle;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -69,5 +70,13 @@ class User extends Model
     public function isGroupChat(): bool
     {
         return $this->chat_id < 0;
+    }
+
+    public function progressForPuzzle(Puzzle $puzzle)
+    {
+        return $this->progress()
+            ->where('puzzle_id', $puzzle->id)
+            ->get()
+            ->keyBy(fn($p) => $p->subject_id . '_' . $p->attribute_id);
     }
 }

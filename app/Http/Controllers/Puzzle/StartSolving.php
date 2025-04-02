@@ -11,14 +11,13 @@ class StartSolving extends BaseCommand
 {
     public function handle(): void
     {
-        $puzzleId = $this->update->getCallbackQueryByKey('p');
-        $puzzle = Puzzle::find($puzzleId);
-
-        $this->getBot()->sendMessageWithKeyboard(
-            View::make('puzzle_solve', [
-                'puzzle' => $puzzle,
-            ])->render(),
-            TableKeyboardService::make($puzzle)
+        $this->getBot()->editMessageText(
+            $this->user->chat_id,
+            $this->update->getCallbackQuery()->getMessage()->getMessageId(),
+            View::make('puzzle_solve')->render(),
+            'html',
+            true,
+            TableKeyboardService::make(request()->get('puzzle'))
         );
     }
 }

@@ -22,10 +22,15 @@ class PuzzleView extends BaseCommand
             $puzzle = Puzzle::find($puzzleId);
         }
 
-        $this->getBot()->sendMessageWithKeyboard(
+        $this->getBot()->editMessageText(
+            $this->user->chat_id,
+            $this->update->getCallbackQuery()->getMessage()->getMessageId(),
             View::make('puzzle_info', [
                 'puzzle' => $puzzle,
+                'progress' => $this->user->progressForPuzzle($puzzle),
             ])->render(),
+            'html',
+            true,
             SelectionKeyboardService::make($puzzle),
         );
     }

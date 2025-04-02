@@ -29,4 +29,8 @@ return [
     'select_subject_to_edit' => 'Select a row to edit:',
     'you_are_editing' => '🖊️ You are editing: :subject',
     'select_attribute_to_edit' => 'Select an attribute to edit for :name:',
+
+    'select_value_for_attribute' => 'Select a value for attribute: :attribute',
+    'back_to_subject' => '⬅️ Back to subject',
+    'submit_solution' => '✅ Submit your solution',
 ];

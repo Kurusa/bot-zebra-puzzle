@@ -10,7 +10,6 @@ class MainMenu extends BaseCommand
 {
     public function handle(): void
     {
-        $this->getBot()->sendText($text);
         $this->user->setStatus(UserStatus::MAIN_MENU);
 
         $this->getBot()->sendMessageWithKeyboard(
