@@ -3,24 +3,30 @@
 namespace App\Http\Controllers\Puzzle;
 
 use App\Enums\PuzzleDifficulty;
-use App\Enums\UserStatus;
 use App\Http\Controllers\BaseCommand;
+use App\Models\Puzzle\Puzzle;
 use App\Services\Keyboard\Puzzle\SelectionKeyboardService;
 use App\Services\Puzzle\PuzzleService;
 use Illuminate\Support\Facades\View;
-use function __;
 
-class SuggestPuzzle extends BaseCommand
+class PuzzleView extends BaseCommand
 {
     public function handle(): void
     {
-        $puzzle = PuzzleService::getPuzzleForDifficulty(PuzzleDifficulty::tryFrom($this->update->getCallbackQueryByKey('d')));
+        $difficulty = $this->update->getCallbackQueryByKey('d');
+        $puzzleId = $this->update->getCallbackQueryByKey('p');
+
+        if ($difficulty) {
+            $puzzle = PuzzleService::getPuzzleForDifficulty(PuzzleDifficulty::tryFrom($difficulty));
+        } else {
+            $puzzle = Puzzle::find($puzzleId);
+        }
 
         $this->getBot()->sendMessageWithKeyboard(
             View::make('puzzle_info', [
                 'puzzle' => $puzzle,
             ])->render(),
-            SelectionKeyboardService::createDifficultyKeyboard($puzzle),
+            SelectionKeyboardService::make($puzzle),
         );
     }
 }

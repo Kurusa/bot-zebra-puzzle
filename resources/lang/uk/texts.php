@@ -1,33 +1,32 @@
 <?php
 
 return [
-    'menu' => "Welcome to Zebra Puzzle! 🦓\nChoose what you want to do:",
-    'menu_option_start' => '🧩 Start Game',
+    'menu' => "Welcome to Zebra Puzzle! 🦓\nWhat would you like to do?",
+    'menu_option_start' => '🧩 Start a Puzzle',
     'menu_option_progress' => '📊 My Progress',
     'menu_option_how_to_play' => '📖 How to Play',
-    'how_to_play' => "Your goal is to solve logical puzzles by matching items based on clues.\nEach puzzle has different attributes (name, drink, pet, etc.).\nUse hints and your brain to connect them correctly.",
-    'select_difficulty' => "Select puzzle difficulty:",
-    'puzzle_intro' => "🧩 Puzzle #:id \n:description\n",
-    'puzzle_suggestion_menu_start_solving' => '✅ Start solving',
-    'puzzle_suggestion_menu_different_puzzle' => '🔄 Suggest a different puzzle',
-    'puzzle_suggestion_menu_back_to_menu' => '⬅️ Back to puzzle selection',
 
-    'puzzle_completed_success' => "🎉 Correct! You solved the puzzle!\n+{points} logic points.",
-    'puzzle_completed_fail' => "❌ Wrong answer. Try again!",
-    'hints_header' => "🔍 Hints for this puzzle: :hints",
-    'progress' => "📊 Your progress:\nSolved puzzles: %d\nFailed attempts: %d",
-    'error_unknown' => "Unknown error occurred.\nPlease try again later.",
-    'select_action' => "Choose what you want to do:",
-    'select_difficulty_action' => "Select puzzle difficulty:",
-    'puzzle_loading' => "Loading your puzzle...",
-    'puzzle_started' => "Puzzle started! Use the buttons to solve it.",
-    'answer_confirm' => "Do you want to submit this answer?",
-    'answer_submitted' => "Your answer has been submitted.",
-    'hints_loading' => "Here are your hints:",
+    'how_to_play' => "Your goal is to solve logic puzzles by matching people, pets, drinks, and other attributes based on hints.\nUse the clues and your deduction skills to fill in the table correctly.",
+
+    'select_difficulty' => "Choose a puzzle difficulty:",
+
+    'puzzle_intro' => "🧩 Puzzle #:id\n:description",
+    'puzzle_suggestion_menu_start_solving' => '✅ Start Solving',
+    'puzzle_suggestion_menu_different_puzzle' => '🔄 Show Another Puzzle',
+    'puzzle_suggestion_menu_back_to_menu' => '⬅️ Back to Difficulty Selection',
+
+    'hints_header' => "🔍 Hints:\n- :hints",
+    'progress' => "📊 Your Progress:\nSolved: %d\nFailed Attempts: %d",
 
     'difficulty_easy' => '⭐️ Easy',
     'difficulty_medium' => '⭐️⭐️ Medium',
     'difficulty_hard' => '⭐️⭐️⭐️ Hard',
 
-    'puzzle_solving' => 'Start solving this puzzle',
+    'back_to_puzzle' => '⬅️ Back to Puzzle',
+    'back_to_table' => '⬅️ Back to Table',
+    'current_table' => '📌 Current Puzzle Table:',
+    'subject' => 'Person',
+    'select_subject_to_edit' => 'Select a row to edit:',
+    'you_are_editing' => '🖊️ You are editing: :subject',
+    'select_attribute_to_edit' => 'Select an attribute to edit for :name:',
 ];

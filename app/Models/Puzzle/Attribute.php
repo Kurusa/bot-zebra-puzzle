@@ -1,29 +1,35 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Puzzle;
 
-use App\Enums\PuzzleDifficulty;
-use App\Models\Puzzle\Puzzle;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
  * @property int $puzzle_id
- * @property string $text
+ * @property string $name
  * @property int $position
- * @property PuzzleDifficulty $difficulty
+ *
+ * @property-read AttributeValue[] $values
+ * @property-read Puzzle $puzzle
  */
-class Hint extends Model
+class Attribute extends Model
 {
     protected $fillable = [
         'puzzle_id',
-        'text',
+        'name',
         'position',
     ];
 
     public function puzzle(): BelongsTo
     {
         return $this->belongsTo(Puzzle::class);
+    }
+
+    public function values(): HasMany
+    {
+        return $this->hasMany(AttributeValue::class);
     }
 }

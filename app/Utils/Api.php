@@ -43,7 +43,7 @@ class Api extends BotApi
             return parent::sendMessage(
                 $this->chatId,
                 $text,
-                'markdown',
+                'html',
                 true,
                 null,
                 $keyboard,

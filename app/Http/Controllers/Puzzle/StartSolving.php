@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\Puzzle;
 
-use App\Enums\PuzzleDifficulty;
-use App\Enums\UserStatus;
 use App\Http\Controllers\BaseCommand;
-use App\Models\Puzzle;
-use App\Services\Puzzle\PuzzleService;
-use App\Services\Keyboard\Puzzle\SelectionKeyboardService;
+use App\Models\Puzzle\Puzzle;
+use App\Services\Keyboard\Puzzle\TableKeyboardService;
 use Illuminate\Support\Facades\View;
-use function __;
 
 class StartSolving extends BaseCommand
 {
@@ -19,10 +15,10 @@ class StartSolving extends BaseCommand
         $puzzle = Puzzle::find($puzzleId);
 
         $this->getBot()->sendMessageWithKeyboard(
-            View::make('puzzle_start', [
+            View::make('puzzle_solve', [
                 'puzzle' => $puzzle,
             ])->render(),
-            SelectionKeyboardService::createSolvingKeyboard($puzzle)
+            TableKeyboardService::make($puzzle)
         );
     }
 }

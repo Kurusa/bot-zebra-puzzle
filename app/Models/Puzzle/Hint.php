@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Puzzle;
 
-use App\Enums\PuzzleDifficulty;
-use App\Models\Puzzle\Puzzle;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -12,7 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $puzzle_id
  * @property string $text
  * @property int $position
- * @property PuzzleDifficulty $difficulty
+ *
+ * @property-read Puzzle $puzzle
  */
 class Hint extends Model
 {

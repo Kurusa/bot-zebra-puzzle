@@ -12,7 +12,7 @@ class SelectDifficulty extends BaseCommand
     {
         $this->getBot()->sendMessageWithKeyboard(
             __('texts.select_difficulty'),
-            DifficultyKeyboardService::createDifficultyKeyboard()
+            DifficultyKeyboardService::make()
         );
     }
 }

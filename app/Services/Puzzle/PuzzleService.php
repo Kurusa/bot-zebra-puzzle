@@ -3,7 +3,7 @@
 namespace App\Services\Puzzle;
 
 use App\Enums\PuzzleDifficulty;
-use App\Models\Puzzle;
+use App\Models\Puzzle\Puzzle;
 
 class PuzzleService
 {

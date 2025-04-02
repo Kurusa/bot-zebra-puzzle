@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Informational;
 
 use App\Enums\UserStatus;
 use App\Http\Controllers\BaseCommand;
-use App\Services\Puzzle\ProgressService;
 use App\Services\Keyboard\MainMenuKeyboardService;
+use App\Services\Puzzle\ProgressService;
 use function __;
 
 class ProgressMenu extends BaseCommand

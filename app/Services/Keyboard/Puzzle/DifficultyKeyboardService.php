@@ -8,7 +8,7 @@ use TelegramBot\Api\Types\Inline\InlineKeyboardMarkup;
 
 class DifficultyKeyboardService
 {
-    public static function createDifficultyKeyboard(): InlineKeyboardMarkup
+    public static function make(): InlineKeyboardMarkup
     {
         return new InlineKeyboardMarkup(collect(PuzzleDifficulty::cases())
             ->map(function (PuzzleDifficulty $key) {

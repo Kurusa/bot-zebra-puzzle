@@ -4,8 +4,5 @@
         'description' => $puzzle->description
     ])
 }}
-{{
-    __('texts.hints_header', [
-        'hints' => $puzzle->hints->implode('text', "\n"),
-    ])
-}}
+
+@include('partials.hints', ['puzzle' => $puzzle])
