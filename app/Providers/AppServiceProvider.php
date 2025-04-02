@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Observers\UserObserver;
 use App\Services\Handlers\UpdateProcessorService;
 use App\Services\Handlers\Updates\TextOrCallbackQueryHandler;
+use App\Services\Puzzle\PuzzleContext;
 use App\Services\Puzzle\Table\TableCellResolver;
 use App\Utils\Api;
 use Carbon\Carbon;
@@ -36,27 +37,21 @@ class AppServiceProvider extends ServiceProvider
             return new Api(config('telegram.telegram_bot_token'));
         });
 
-        View::composer('*', function ($view) {
-            $request = request();
-
-            if ($request->has('puzzle')) {
-                $view->with('puzzle', $request->get('puzzle'));
-            }
-
-            if ($request->has('progress')) {
-                $view->with('progress', $request->get('progress'));
-            }
-
-            if ($request->has('selectedSubject')) {
-                $view->with('selectedSubject', $request->get('selectedSubject'));
-            }
-
-            if ($request->has('selectedAttribute')) {
-                $view->with('selectedAttribute', $request->get('selectedAttribute'));
-            }
+        $this->app->scoped(PuzzleContext::class, function () {
+            return new PuzzleContext();
         });
 
-        Carbon::setLocale(app()->getLocale());
+        View::composer('*', function ($view) {
+            $context = app(PuzzleContext::class);
+
+            $view->with([
+                'puzzle' => $context->puzzle,
+                'progress' => $context->progress,
+                'selectedSubject' => $context->selectedSubject,
+                'selectedAttribute' => $context->selectedAttribute,
+            ]);
+        });
+
         User::observe(UserObserver::class);
 
         View::share('cellResolver', app(TableCellResolver::class));

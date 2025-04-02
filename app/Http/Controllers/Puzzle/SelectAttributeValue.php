@@ -16,7 +16,12 @@ class SelectAttributeValue extends BaseCommand
             View::make('select_attribute_value')->render(),
             'html',
             true,
-            AttributeValueKeyboard::make()
+            AttributeValueKeyboard::make(
+                $this->puzzleContext->puzzle,
+                $this->puzzleContext->progress,
+                $this->puzzleContext->selectedSubject,
+                $this->puzzleContext->selectedAttribute,
+            )
         );
     }
 }

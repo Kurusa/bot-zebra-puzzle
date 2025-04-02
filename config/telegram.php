@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Back;
 use App\Http\Controllers\CheckBlockedUsers;
+use App\Http\Controllers\Informational\SettingsCommand;
 use App\Http\Controllers\Puzzle\SelectDifficulty;
 use App\Http\Controllers\Informational\HowToPlay;
 use App\Http\Controllers\Informational\ProgressMenu;
@@ -18,6 +19,7 @@ return [
             'menu_option_progress' => ProgressMenu::class,
 
             'menu_option_start' => SelectDifficulty::class,
+            'menu_option_settings' => SettingsCommand::class,
         ],
 
         'slash' => [

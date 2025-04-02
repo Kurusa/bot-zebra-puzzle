@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Puzzle;
 
 use App\Http\Controllers\BaseCommand;
-use App\Models\Puzzle\Attribute;
 use App\Models\Puzzle\AttributeValue;
-use App\Models\Puzzle\Puzzle;
-use App\Models\Puzzle\Subject;
+use App\Models\Puzzle\Solution;
 use App\Models\UserProgress;
-use App\Services\Keyboard\Puzzle\AttributeSelectionKeyboard;
-use Illuminate\Support\Facades\View;
+use App\Services\Puzzle\PuzzleSolutionService;
 
 class SaveAttributeValue extends BaseCommand
 {
@@ -17,35 +14,40 @@ class SaveAttributeValue extends BaseCommand
     {
         $valueId = $this->update->getCallbackQueryByKey('v');
 
-        /** @var Puzzle $puzzle */
-        $puzzle = request()->get('puzzle');
-        /** @var Subject $subject */
-        $subject = request()->get('selectedSubject');
-        /** @var Attribute $subject */
-        $attribute = request()->get('selectedAttribute');
-
-        /** @var AttributeValue $value */
-        $value = $attribute->values->find($valueId);
-
         UserProgress::updateOrCreate(
             [
                 'user_id' => $this->user->id,
-                'puzzle_id' => $puzzle->id,
-                'subject_id' => $subject->id,
-                'attribute_id' => $attribute->id,
+                'puzzle_id' => $this->puzzleContext->puzzle->id,
+                'subject_id' => $this->puzzleContext->selectedSubject->id,
+                'attribute_id' => $this->puzzleContext->selectedAttribute->id,
             ],
             [
-                'attribute_value_id' => $value->id,
+                'attribute_value_id' => $valueId,
             ]
         );
 
-        $this->getBot()->editMessageText(
-            $this->user->chat_id,
-            $this->update->getCallbackQuery()->getMessage()->getMessageId(),
-            View::make('edit_subject')->render(),
-            'html',
-            true,
-            AttributeSelectionKeyboard::make(),
-        );
+        if ($this->user->show_feedback_immediately) {
+            $isCorrect = PuzzleSolutionService::isCorrectValue(
+                $this->puzzleContext->puzzle,
+                $this->puzzleContext->selectedSubject,
+                $this->puzzleContext->selectedAttribute,
+                AttributeValue::find($valueId),
+            );
+
+            $text = $isCorrect
+                ? __('texts.feedback_correct')
+                : __('texts.feedback_incorrect');
+
+            $this->getBot()->answerCallbackQuery(
+                $this->update->getCallbackQuery()->getId(),
+                $text,
+                true
+            );
+        }
+
+        $this->user->refresh();
+        $this->puzzleContext->setProgress($this->user->progressForPuzzle($this->puzzleContext->puzzle));
+
+        $this->triggerCommand(SelectAttributeValue::class);
     }
 }

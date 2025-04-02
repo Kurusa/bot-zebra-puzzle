@@ -15,13 +15,13 @@ class CellState
     public function display(): string
     {
         if ($this->isSelectedCell) {
-            return '...';
+            return '✏️';
         }
 
         if ($this->isSelectedRow && $this->value === null) {
-            return '...';
+            return '✏️';
         }
 
-        return $this->value ?? '?';
+        return $this->value ?? '❔';
     }
 }

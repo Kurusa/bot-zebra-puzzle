@@ -16,7 +16,7 @@ class StartSolving extends BaseCommand
             View::make('puzzle_solve')->render(),
             'html',
             true,
-            TableKeyboardService::make()
+            TableKeyboardService::make($this->puzzleContext->puzzle)
         );
     }
 }

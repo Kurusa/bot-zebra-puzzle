@@ -16,7 +16,10 @@ class SelectAttribute extends BaseCommand
             View::make('select_attribute')->render(),
             'html',
             true,
-            AttributeSelectionKeyboard::make()
+            AttributeSelectionKeyboard::make(
+                $this->puzzleContext->puzzle,
+                $this->puzzleContext->selectedSubject,
+            )
         );
     }
 }

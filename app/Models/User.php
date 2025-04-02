@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $chat_id telegram chat ID of the user. Negative for group chats.
  * @property UserStatus $status
  * @property string $language
+ * @property bool $show_feedback_immediately
  *
  * @property-read UserProgress $progress
  */
@@ -28,11 +29,13 @@ class User extends Model
         'chat_id',
         'status',
         'language',
+        'show_feedback_immediately',
     ];
 
     protected $casts = [
         'status' => UserStatus::class,
         'is_blocked' => 'boolean',
+        'show_feedback_immediately' => 'boolean',
     ];
 
     public function matchStatus(UserStatus $status): bool

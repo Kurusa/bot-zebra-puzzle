@@ -9,11 +9,8 @@ use TelegramBot\Api\Types\Inline\InlineKeyboardMarkup;
 
 class TableKeyboardService
 {
-    public static function make(): InlineKeyboardMarkup
+    public static function make(Puzzle $puzzle): InlineKeyboardMarkup
     {
-        /** @var Puzzle $puzzle */
-        $puzzle = request()->get('puzzle');
-
         $buttons = [];
 
         foreach ($puzzle->subjects as $subject) {
@@ -28,6 +25,16 @@ class TableKeyboardService
                 ],
             ];
         }
+
+        $buttons[] = [
+            [
+                'text' => __('texts.submit_solution'),
+                'callback_data' => json_encode([
+                    'p' => $puzzle->id,
+                    'a' => CallbackAction::SUBMIT_SOLUTION->value,
+                ]),
+            ],
+        ];
 
         $buttons[] = [
             [

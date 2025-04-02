@@ -14,7 +14,7 @@ class MainMenu extends BaseCommand
 
         $this->getBot()->sendMessageWithKeyboard(
             __('texts.menu'),
-            MainMenuKeyboardService::createMainMenuKeyboard(),
+            MainMenuKeyboardService::make(),
         );
     }
 }

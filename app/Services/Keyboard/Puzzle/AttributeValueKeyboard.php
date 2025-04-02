@@ -6,31 +6,30 @@ use App\Enums\CallbackAction\CallbackAction;
 use App\Models\Puzzle\Attribute;
 use App\Models\Puzzle\Puzzle;
 use App\Models\Puzzle\Subject;
-use App\Models\UserProgress;
+use App\Services\Puzzle\PuzzleSolutionService;
+use Illuminate\Database\Eloquent\Collection;
 use TelegramBot\Api\Types\Inline\InlineKeyboardMarkup;
 
 class AttributeValueKeyboard
 {
-    public static function make(): InlineKeyboardMarkup
+    public static function make(
+        Puzzle     $puzzle,
+        Collection $progress,
+        Subject    $subject,
+        Attribute  $attribute,
+    ): InlineKeyboardMarkup
     {
-        /** @var Puzzle $puzzle */
-        $puzzle = request()->get('puzzle');
-        /** @var UserProgress $puzzle */
-        $progress = request()->get('progress');
-        /** @var Subject $subject */
-        $subject = request()->get('selectedSubject');
-        /** @var Attribute $subject */
-        $attribute = request()->get('selectedAttribute');
-
         $buttons = [];
 
         foreach ($attribute->values as $value) {
-            $selected = $progress?->has($subject->id . '_' . $attribute->id)
+            $selected = $progress->has($subject->id . '_' . $attribute->id)
                 && $progress[$subject->id . '_' . $attribute->id]->attribute_value_id === $value->id;
+
+            $isCorrect = PuzzleSolutionService::isCorrectValue($puzzle, $subject, $attribute, $value);
 
             $buttons[] = [
                 [
-                    'text' => ($selected ? '✅ ' : '') . $value->value,
+                    'text' => ($selected ? ($isCorrect ? '✅ ' : '❌ ') : '') . $value->value,
                     'callback_data' => json_encode([
                         'p' => $puzzle->id,
                         's' => $subject->id,

@@ -16,7 +16,10 @@ class EditSubject extends BaseCommand
             View::make('edit_subject')->render(),
             'html',
             true,
-            SubjectAttributeKeyboard::make()
+            SubjectAttributeKeyboard::make(
+                $this->puzzleContext->puzzle,
+                $this->puzzleContext->selectedSubject,
+            )
         );
     }
 }
