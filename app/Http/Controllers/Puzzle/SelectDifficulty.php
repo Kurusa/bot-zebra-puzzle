@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Puzzle;
 
 use App\Http\Controllers\BaseCommand;
 use App\Services\Keyboard\Puzzle\DifficultyKeyboardService;
-use Illuminate\Support\Facades\View;
 use function __;
 
 class SelectDifficulty extends BaseCommand

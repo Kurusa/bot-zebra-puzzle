@@ -25,10 +25,7 @@ class PuzzleView extends BaseCommand
         $this->getBot()->editMessageText(
             $this->user->chat_id,
             $this->update->getCallbackQuery()->getMessage()->getMessageId(),
-            View::make('puzzle_info', [
-                'puzzle' => $puzzle,
-                'progress' => $this->user->progressForPuzzle($puzzle),
-            ])->render(),
+            View::make('puzzle_info')->render(),
             'html',
             true,
             SelectionKeyboardService::make($puzzle),

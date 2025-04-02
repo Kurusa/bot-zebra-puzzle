@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace App\Http\Middleware\Puzzle;
 
 use App\Models\Puzzle\Puzzle;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
-class LoadPuzzleProgress
+class LoadPuzzleContext
 {
     public function handle(Request $request, Closure $next)
     {
@@ -18,10 +18,8 @@ class LoadPuzzleProgress
             return $next($request);
         }
 
-        $puzzleId = (int)$callbackData['p'];
-
         /** @var Puzzle $puzzle */
-        $puzzle = Puzzle::with(['subjects', 'attributes.values'])->findOrFail($puzzleId);
+        $puzzle = Puzzle::with(['subjects', 'attributes.values'])->findOrFail((int)$callbackData['p']);
 
         /** @var User $user */
         $user = $request->get('user');
@@ -31,9 +29,19 @@ class LoadPuzzleProgress
             ->get()
             ->keyBy(fn($p) => $p->subject_id . '_' . $p->attribute_id);
 
+        $selectedSubject = isset($callbackData['s'])
+            ? $puzzle->subjects->firstWhere('id', (int)$callbackData['s'])
+            : null;
+
+        $selectedAttribute = isset($callbackData['at'])
+            ? $puzzle->attributes->firstWhere('id', (int)$callbackData['at'])
+            : null;
+
         $request->merge([
             'puzzle' => $puzzle,
             'progress' => $progress,
+            'selectedSubject' => $selectedSubject,
+            'selectedAttribute' => $selectedAttribute,
         ]);
 
         return $next($request);

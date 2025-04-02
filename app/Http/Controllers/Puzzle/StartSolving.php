@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Puzzle;
 
 use App\Http\Controllers\BaseCommand;
-use App\Models\Puzzle\Puzzle;
 use App\Services\Keyboard\Puzzle\TableKeyboardService;
 use Illuminate\Support\Facades\View;
 
@@ -17,7 +16,7 @@ class StartSolving extends BaseCommand
             View::make('puzzle_solve')->render(),
             'html',
             true,
-            TableKeyboardService::make(request()->get('puzzle'))
+            TableKeyboardService::make()
         );
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\WebhookController;
-use App\Http\Middleware\LoadPuzzleProgress;
 use App\Http\Middleware\LoadTelegramUser;
+use App\Http\Middleware\Puzzle\LoadPuzzleContext;
 use App\Http\Middleware\SaveMessage;
 use Illuminate\Support\Facades\Route;
 
@@ -13,5 +13,5 @@ Route::post('/' . config('telegram.telegram_bot_token') . '/webhook', [WebhookCo
     ->middleware([
         LoadTelegramUser::class,
         SaveMessage::class,
-        LoadPuzzleProgress::class,
+        LoadPuzzleContext::class,
     ]);

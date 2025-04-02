@@ -9,8 +9,13 @@ use TelegramBot\Api\Types\Inline\InlineKeyboardMarkup;
 
 class AttributeSelectionKeyboard
 {
-    public static function make(Puzzle $puzzle, Subject $subject): InlineKeyboardMarkup
+    public static function make(): InlineKeyboardMarkup
     {
+        /** @var Puzzle $puzzle */
+        $puzzle = request()->get('puzzle');
+        /** @var Subject $subject */
+        $subject = request()->get('selectedSubject');
+
         $buttons = [];
 
         foreach ($puzzle->attributes as $attribute) {

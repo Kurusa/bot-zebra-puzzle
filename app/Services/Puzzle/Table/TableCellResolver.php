@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Puzzle;
+namespace App\Services\Puzzle\Table;
 
 use App\DTO\CellState;
 use App\Models\Puzzle\Attribute;

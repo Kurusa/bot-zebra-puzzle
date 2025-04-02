@@ -3,21 +3,34 @@
 namespace App\Services\Keyboard\Puzzle;
 
 use App\Enums\CallbackAction\CallbackAction;
+use App\Models\Puzzle\Attribute;
 use App\Models\Puzzle\Puzzle;
 use App\Models\Puzzle\Subject;
-use App\Models\Puzzle\Attribute;
+use App\Models\UserProgress;
 use TelegramBot\Api\Types\Inline\InlineKeyboardMarkup;
 
 class AttributeValueKeyboard
 {
-    public static function make(Puzzle $puzzle, Subject $subject, Attribute $attribute): InlineKeyboardMarkup
+    public static function make(): InlineKeyboardMarkup
     {
+        /** @var Puzzle $puzzle */
+        $puzzle = request()->get('puzzle');
+        /** @var UserProgress $puzzle */
+        $progress = request()->get('progress');
+        /** @var Subject $subject */
+        $subject = request()->get('selectedSubject');
+        /** @var Attribute $subject */
+        $attribute = request()->get('selectedAttribute');
+
         $buttons = [];
 
         foreach ($attribute->values as $value) {
+            $selected = $progress?->has($subject->id . '_' . $attribute->id)
+                && $progress[$subject->id . '_' . $attribute->id]->attribute_value_id === $value->id;
+
             $buttons[] = [
                 [
-                    'text' => $value->value,
+                    'text' => ($selected ? '✅ ' : '') . $value->value,
                     'callback_data' => json_encode([
                         'p' => $puzzle->id,
                         's' => $subject->id,

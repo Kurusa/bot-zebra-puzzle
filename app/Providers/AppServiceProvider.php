@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Observers\UserObserver;
 use App\Services\Handlers\UpdateProcessorService;
 use App\Services\Handlers\Updates\TextOrCallbackQueryHandler;
-use App\Services\Puzzle\TableCellResolver;
+use App\Services\Puzzle\Table\TableCellResolver;
 use App\Utils\Api;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
@@ -45,6 +45,14 @@ class AppServiceProvider extends ServiceProvider
 
             if ($request->has('progress')) {
                 $view->with('progress', $request->get('progress'));
+            }
+
+            if ($request->has('selectedSubject')) {
+                $view->with('selectedSubject', $request->get('selectedSubject'));
+            }
+
+            if ($request->has('selectedAttribute')) {
+                $view->with('selectedAttribute', $request->get('selectedAttribute'));
             }
         });
 
